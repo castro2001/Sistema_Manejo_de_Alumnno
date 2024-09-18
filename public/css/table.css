@@ -1,0 +1,29 @@
+.table-style thead th {
+    background-color: #343a40; /* Fondo oscuro */
+    color: white; /* Texto blanco */
+    font-weight: bold; /* Negrita */
+    text-align: center; /* Centrar el texto */
+    padding: 10px; /* Aumentar el espacio entre texto y borde */
+    border-bottom: 3px solid #ffc107; /* Borde inferior amarillo */
+}
+
+/* Cambiar el estilo al pasar el ratón sobre las celdas del encabezado */
+.table-style thead th:hover {
+    background-color: #ffc107; /* Cambia a amarillo cuando se pasa el ratón */
+    color: #343a40; /* Texto cambia a oscuro */
+}
+
+.dataTables_filter input[search] {
+    width: 300px;
+    padding: 10px;
+    border: 2px solid #ffc107;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
+.dataTables_filter {
+    text-align: right;
+    margin-bottom: 15px;
+}
