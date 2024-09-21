@@ -150,5 +150,17 @@ class Student extends Model{
     }
 
     
+    public function getAllStudent()
+    {
+        $this->table = "alumno";
+        $this->columns =[
+            'id AS Alumno_id',
+            'nombre as Alumno'
+        ];
+        
+        $this->set_distinct(true);
+        $this->set_order_by('id ASC');
+        return $this->query();
+    }
     
 }

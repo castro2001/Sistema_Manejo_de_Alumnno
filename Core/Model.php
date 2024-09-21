@@ -1,6 +1,7 @@
 <?php
 namespace Core;
 
+use InvalidArgumentException;
 use PDO;
 use PDOException;
 use RuntimeException;
@@ -19,6 +20,8 @@ abstract class Model {
     protected $columns = ['*'];
     protected $joins = [];
     protected $limit = '';
+    protected $distinct='';
+    protected $orderBy='';
 
     public function __construct() {
         $this->host = $_ENV['DB_HOST'];
@@ -62,13 +65,16 @@ abstract class Model {
             $joinsString = implode(" ", $this->joins);
     
             // Construir consulta SQL
-            $sql = "SELECT {$columnsString} FROM {$this->table} {$joinsString}";
-    
+                $sql = "SELECT {$this->distinct} {$columnsString} FROM {$this->table} {$joinsString}";
+
             // Agregar condiciones
             if ($this->condition) {
                 $sql .= " WHERE {$this->condition}";
             }
-    
+            // Agregar ORDER BY si está configurado
+            if ($this->orderBy) {
+                $sql .= " ORDER BY  {$this->orderBy}";
+            }
             // Agregar LIMIT
             if ($this->limit) {
                 $sql .= " LIMIT {$this->limit}";
@@ -134,7 +140,7 @@ abstract class Model {
     {
         try {
             $this->open_connection();
-            $sql = "SELECT 1 FROM {$this->table} WHERE {$this->columns} = :value LIMIT 1";
+            $sql = "SELECT 1 FROM {$this->table} WHERE {$this->columns} = :value ";
             $statement = $this->pdo->prepare($sql);
             $statement->bindParam(':value', $value);
             $statement->execute();
@@ -145,6 +151,33 @@ abstract class Model {
             $this->close_connection();
         }
     }
+    public function exists2($idAlumno, $diaSemana, $horaInicio, $horaFin)
+    {
+        try {
+            $this->open_connection();
+            $sql = "SELECT count(*) FROM {$this->table} 
+                    WHERE id_alumno = :idAlumno
+                    AND dia_semana = :diaSemana
+                    AND (
+                        (hora_inicio <= :horaFin AND hora_fin >= :horaInicio)
+                    )";
+            
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindParam(':idAlumno', $idAlumno);
+            $statement->bindParam(':diaSemana', $diaSemana);
+            $statement->bindParam(':horaInicio', $horaInicio);
+            $statement->bindParam(':horaFin', $horaFin);
+            
+            $statement->execute();
+            return $statement->fetchColumn() > 0; // Retorna true si existe al menos un registro
+        } catch (\Throwable $e) {
+            throw new RuntimeException($e->getMessage());
+        } finally {
+            $this->close_connection();
+        }
+    }
+    
+    
     
 
     // Establecer la acción SQL
@@ -166,8 +199,17 @@ abstract class Model {
         $this->limit = $limit;
     }
 
+    public function set_distinct(bool $distinct) {
+        $this->distinct = $distinct ? 'DISTINCT' : '';
+    }
+    
     // Método para agregar JOINs
     public function add_joins(array $joins) {
         $this->joins = $joins;
     }
+
+    public function set_order_by(string $orderBy) {
+        $this->orderBy = $orderBy;
+    }
+    
 }

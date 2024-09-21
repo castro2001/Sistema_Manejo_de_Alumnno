@@ -1,5 +1,9 @@
+-- Active: 1719858241057@@127.0.0.1@3306@u531517694_controlescolar
+DROP DATABASE u531517694_controlescolar;
 CREATE DATABASE u531517694_controlescolar;
 USE u531517694_controlescolar;
+
+-- TABLA BBDD
 
 CREATE TABLE `usuario`(
     id INT AUTO_INCREMENT NOT NULL,
@@ -39,6 +43,17 @@ CREATE TABLE `materia`(
     descripcion TEXT,
     PRIMARY KEY (id)
 );
+CREATE TABLE `alumno_materia_horarios`(
+    id INT AUTO_INCREMENT ,
+    id_alumno INT,
+    id_materia INT,
+    dia_semana ENUM('Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes','Sabado','Domingo'),
+    hora_inicio TIME,
+    hora_fin TIME,
+    PRIMARY KEY(id),
+    FOREIGN KEY (id_alumno) REFERENCES alumno(id),
+    FOREIGN KEY (id_materia) REFERENCES materia(id)
+) COMMENT 'Maestro detalle';
 
 CREATE TABLE `pagos` (
     id INT AUTO_INCREMENT NOT NULL,
@@ -54,10 +69,13 @@ CREATE TABLE `pagos` (
     PRIMARY KEY(id),
     FOREIGN KEY (id_alumno) REFERENCES alumno(id)
 );
+SELECT * FROM usuario
+
+-- DATOS POR DEFECTOS
 
 
 -- Insertar datos en la tabla `tutor`
-
+INSERT INTO usuario(usuario,password,rol) VALUES('Administrador','Admin4578','Administrador')
 
 INSERT INTO tutor (nombre, n_celular, ocupacion) VALUES 
 ('Carlos Pérez', '0987654321', 'Ingeniero'),
@@ -77,8 +95,14 @@ INSERT INTO alumno (nombre, fecha_nacimiento, direccion,foto, n_celular, escuela
 INSERT INTO materia (nombre, docente, descripcion) VALUES 
 ('Matemáticas', 'Dr. Fernando Torres', 'Introducción a las matemáticas básicas'),
 ('Ciencias', 'Lic. Laura Castro', 'Estudio de las ciencias naturales'),
-('Historia', 'Prof. Juan Paredes', 'Historia del Ecuador y el mundo');
+('Historia', 'Prof. Juan Paredes', 'Historia del Ecuador y el mundo'),
+('Progrmación', 'Prof. Juan Paredes', 'Historia del Ecuador y el mundo');
 
+INSERT INTO alumno_materia_horarios (id_alumno, id_materia,dia_semana,hora_inicio,hora_fin) VALUES 
+(1, 1,'Lunes', '08:00', '10:00'), -- Juan López está inscrito en Matemáticas
+(2, 4,'Miércoles', '11:00', '13:30'), -- Juan López está inscrito en Ciencias
+(3, 2,'Martes', '9:00', '10:40'), -- María Gómez está inscrita en Ciencias
+(4,3,'Jueves', '15:00', '18:30'); -- María Gómez está inscrita en Ciencias
 -- Insertar datos en la tabla `pagos`
 INSERT INTO pagos (codigo, id_alumno, metodo_pago, monto, descuentos,observacion, total, status) 
 VALUES 
@@ -88,7 +112,13 @@ VALUES
 -- Insertar datos en la tabla `alumno_materia`
 
 
--- Pedro 
+-- Consultaass
+SELECT * FROM usuario
 
-SELECT * FROM pagos
 
+-- Acctualizar incremmenntte aa 1 solo debe poner la tabla correspondiente
+ALTER TABLE materia AUTO_INCREMENT =1;
+
+
+
+    

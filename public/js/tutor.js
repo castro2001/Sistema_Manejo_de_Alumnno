@@ -172,7 +172,6 @@ formulario_Tutor.attr('action','Tutor/borrarTutor');
             success: function(response) {
                 // Lógica de éxito (mostrar mensaje, recargar datos, etc.)
               const responseJson = JSON.parse(response);
-                console.log(responseJson); // O manejar con alertas o recargas de tabla
         
                 alerta.html(`  
                   <div class="alert ${responseJson.alert} alert-dismissible fade show" role="alert">
@@ -180,17 +179,17 @@ formulario_Tutor.attr('action','Tutor/borrarTutor');
                       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>
               `);
-                // Detecta cuando el modal se oculta completamente
-$('#reusableModal').on('hidden.bs.modal', function () {
-  // Recarga la página
-  location.reload();
+
+              // $('#modal_reutilizable_tutor').modal('hide');
+
+// Detectar el cierre del modal
+$('#modal_reutilizable_tutor').on('hidden.bs.modal', function () {
+  // 
+  setTimeout(function(){
+    location.reload(); // Recargar la página
+  },1000)
 });
 
-// $('#reusableModal').modal('hide');
-//                 setInterval(function () {
-//                   // Llama a la función de recarga cada 10 segundos (puedes ajustar este valor)
-//                   location.reload()
-//                }, 10000);
                
             },
             error: function(xhr, status, error) {

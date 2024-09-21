@@ -213,7 +213,6 @@ $(document).ready(function () {
       success: function(response) {
           // Lógica de éxito (mostrar mensaje, recargar datos, etc.)
         const responseJson = JSON.parse(response);
-          console.log(responseJson); // O manejar con alertas o recargas de tabla
 
           alerta.html(`
             <div class="alert ${responseJson.alert} alert-dismissible fade show" role="alert">
@@ -221,7 +220,13 @@ $(document).ready(function () {
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
           `);
-          $('#reusableModal').modal('hide');
+         // Detectar el cierre del modal
+$('#modal_reutilizable_materia').on('hidden.bs.modal', function () {
+  // 
+  setTimeout(function(){
+    location.reload(); // Recargar la página
+  },1000)
+});
      
       },
       error: function(xhr, status, error) {

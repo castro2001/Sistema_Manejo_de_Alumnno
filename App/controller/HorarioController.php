@@ -2,14 +2,18 @@
 namespace App\Controller;
 
 use App\Model\Repository\SchedulesRepository;
+use App\Model\Repository\StudentRepository;
+use App\Model\Repository\StudentSubjectScheduleRepository;
 use Core\Controller;
 use DateTime;
 /**Este Controller va hacer cambiado la funcion */
 class HorarioController extends Controller{
-    protected $schedulesRepository;
+    protected $StudentSubjectScheduleRepository;
+    protected $studentRepository;
     public function __construct()
     {
-        $this->schedulesRepository = new SchedulesRepository();
+        $this->studentRepository = new StudentRepository();
+        $this->StudentSubjectScheduleRepository= new StudentSubjectScheduleRepository();
     }
     public function view_Horario(){
      
@@ -20,47 +24,45 @@ class HorarioController extends Controller{
             ],
             "scripts"=>['horario']
         );
-    
-        $this->render("horario.horario",$information);
+     
+            $this->render("horario.horario",$information);
+      
     }
 
-    public function view_edit(){
-        // $this->render("login");
-        echo "vista de editar";
-    }
-
-    public function view_add(){
-        // $this->render("login");
-        echo "vista de add";
-    }
-
-    public function view_remove(){
-        // $this->render("login");
-        echo "vista de eliminar";
-    }
+  
 
     public function getDatasHorario() {
         $this->checkRequest(); // Asegúrate de que esta función esté correctamente implementada
     
         $dataArray = array();
-        foreach ($this->schedulesRepository->query() as $data) {
-            $hora_inicio = new DateTime($data->hora_inicio);
-            $hora_fin = new DateTime($data->hora_fin);
+        foreach ($this->studentRepository->query() as $data) {
             $dataArray[] = array(
-                "id" => $data->id,
-              "Hora" => date_format($hora_inicio, 'H:i') . ' - ' . date_format($hora_fin, 'H:i'),
-
-                "Lunes" => $data->dia_semana === 'Lunes' ? $data->nombre : '',
-                "Martes" => $data->dia_semana === 'Martes' ? $data->nombre : '',
-                "Miércoles" => $data->dia_semana === 'Miércoles' ? $data->nombre : '',
-                "Jueves" => $data->dia_semana === 'Jueves' ? $data->nombre : '',
-                "Viernes" => $data->dia_semana === 'Viernes' ? $data->nombre : ''
-         
+               "id" => $data->id,
+                "Alumno" => $data->Alumno,
+                "ruta_img"=>$data->foto,
             );
         }
         // Devuelve los datos en formato JSON para que AJAX los consuma
         echo json_encode(array("data" => $dataArray));
     }
     
-    
+    public function getByHorario() {
+        // $this->checkRequest(); // Asegúrate de que esta función esté correctamente implementada
+        $id = isset($_POST['id']) ? $_POST['id'] : 'id no encontrado';
+    $dataArray = array();
+        foreach ($this->StudentSubjectScheduleRepository->findByAlumno($id) as $data) {
+            $dataArray[] = array(
+               "id" => $data->Id,
+                "Alumno" => $data->Alumno,
+                "Dia"=>$data->Dia,
+                "Materia"=>$data->Materia,
+                "Inicio"=>$data->Inicio,
+                "Fin"=>$data->Fin,
+
+            );
+        }
+    //     // Devuelve los datos en formato JSON para que AJAX los consuma
+        echo json_encode(array("data" => $dataArray));
+    }
+   
 }

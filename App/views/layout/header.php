@@ -27,7 +27,8 @@
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
-<body>
+
+<body  >
 
 <main class="wrapper">
     <div class="body-overlay"></div>
@@ -43,22 +44,7 @@
           
             <ul class="list-unstyled components">
 
-                <li class="dropdown">
-                    <a class="text-decoration-none" data-bs-toggle="collapse" data-bs-target="#collapse" aria-expanded="false" aria-controls="collapseExample">
-                        <span><?= isset($_SESSION['nombre'])? ucfirst($_SESSION['nombre']): 'Jordan'; ?></span>
-                    </a>                  
-                    <ul class="collapse list-unstyled menu" id="collapse">
-                        <li>
-                            <a href="" class="text-decoration-none">Perfil</a>
-                        </li>
-                        <li>
-                            <a href="#" class="text-decoration-none" >Configuración</a>
-                        </li>
-                        <li>
-                            <a href="" class="text-decoration-none">Cerrar sesión</a>
-                        </li>
-                    </ul>
-                </li>
+            
 
                 <li >
                      <a href="Administrador" class="dashboard text-decoration-none"><i class="material-icons">dashboard</i><span>Dashboard</span></a>
@@ -101,101 +87,41 @@
 <section id="content">
     <header class="top-navbar">
         <section class="xp-topbar">
-
-            <!-- Start XP Row -->
-            <div class="row justify-content-between"> 
-                <!-- Start XP Col -->
-                <div class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
-                    <div class="xp-menubar">
-                            <span class="material-icons text-white">signal_cellular_alt
-                            </span>
-                        </div>
-                </div> 
-                <!-- End XP Col -->
-
-                <!-- Start XP Col -->
-                <div class="col-md-5 col-lg-3 order-3 order-md-2">
-                    <div class="xp-searchbar">
-                        <form>
-                            <div class="input-group">
-                                <input type="search" class="form-control" 
-                                placeholder="Buscar...">
-                                <div class="input-group-append">
-                                <button class="btn" type="submit" 
-                                id="button-addon2">Buscar</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+            <div class="row justify-content-between align-items-center">
+            <!-- Menú en la izquierda -->
+            <div class="col-1 col-lg-1 col-md-1">
+                <div class="xp-menubar">
+                    <span class="material-icons text-white">signal_cellular_alt</span>
                 </div>
-                <!-- End XP Col -->
+            </div>
 
-                <!-- Start XP Col -->
-                <div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
-                    <div class="xp-profilebar text-right">
-                            <nav class="navbar p-0">
-                            <ul class="nav navbar-nav flex-row ml-auto">   
-                                <li class="dropdown nav-item active">
-                                    <a href="#" class="nav-link" data-toggle="dropdown">
-                                    <span class="material-icons">notifications</span>
-                                    <span class="notification">4</span>
-                                </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="#">You have 5 new messages</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">You're now friend with Mike</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Wish Mary on her birthday!</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">5 warnings in Server Console</a>
-                                        </li>
-                                    
-                                    </ul>
-                                </li>
-                                
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link" href="#" data-toggle="dropdown">
-                                    <img src="public/image/logo.png" style="width:40px; border-radius:50%;"/>
-                                    <span class="xp-user-live"></span>
-                                    </a>
-                                    <ul class="dropdown-menu small-menu">
-                                        <li>
-                                            <a href="../profile/mostrar.php">
-                                            <span class="material-icons">person_outline</span>Perfil
+            <div class="col-8 col-lg-1 col-md-4 position-relative">
 
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><span class="material-icons">settings</span>Configuración</a>
-                                        </li>
-                                        <li>
-                                            <a href="../pages-logout.php"><span class="material-icons">logout</span>Cerrar sesión</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                    </nav>
-                        
-                    </div>
+                <div class="position-relative">
+                <a class="text-decoration-none" data-bs-toggle="collapse" data-bs-target="#collapse" aria-expanded="false" aria-controls="collapseExample">
+                    <img src="public/image/user.jpg" alt="logo" class="rounded-circle" height="50">
+                </a>                  
+                    
                 </div>
-                <!-- End XP Col -->
+                <ul class="collapse list-unstyled  bg-white dropdown position-absolute end-0 text-center shadow" style="width:150px;height:120px" id="collapse">
+                        <li class="p-2">
+                            <?= isset($_SESSION['User'])? ucfirst($_SESSION['User']->usuario): 'Jordan'; ?>
+                        </li>
+                    
+                        <li class="p-2">
+                            <a href="Login/logout" class=" btn btn-danger">Cerrar sesión</a>
+                        </li>
+                </ul>
+                </div>
+            </div>
+                
 
-            </div> 
-            <!-- End XP Row -->
-
-        </section>
-
-        <section class="xp-breadcrumbbar text-center">
-            <h4 class="page-title">Bienvenido&nbsp;<?= isset($_SESSION['usuario']) ? ucfirst($_SESSION['usuario']):'user' ; ?></h4>  
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><?=  isset($_SESSION['correo'])? ucfirst($_SESSION['correo']): 'example'; ?></li>
-            </ol>                
         </section>
         
     </header>
 
+    
+
     <section class="main-content">
+
+

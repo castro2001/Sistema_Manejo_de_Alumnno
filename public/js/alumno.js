@@ -146,7 +146,6 @@ $(document).ready(function () {
     $(document).on('click', '#editarButtonAlumno', function (e) {
         const id  = $(this).data('id');     
          obtenerAlumnoPorId(id);
-    console.log(id);
 
 
       modalTitle.text('Editar ');
@@ -403,7 +402,6 @@ formData.append('itemID',$('#itemID').val());
         processData: false,
         success: function (response) {
             const responseJson = JSON.parse(response);
-            console.log(responseJson);
             
             alerta.html(`  
                 <div class="alert ${responseJson.alert} alert-dismissible fade show" role="alert">
@@ -411,11 +409,13 @@ formData.append('itemID',$('#itemID').val());
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             `);
-            $('#reusableModal').modal('hide');
-            // setInterval(function () {
-            //     // Llama a la función de recarga cada 10 segundos (puedes ajustar este valor)
-            //     location.reload()
-            //  }, 100);
+        // Detectar el cierre del modal
+$('#modal_reutilizable_Alumno').on('hidden.bs.modal', function () {
+    // 
+    setTimeout(function(){
+      location.reload(); // Recargar la página
+    },1000)
+  });
         },
         error: function (xhr, status, error) {
             alert('Error: ' + error);

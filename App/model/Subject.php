@@ -24,7 +24,20 @@ class Subject extends Model{
     public function setDescription($description): self {$this->description = $description; return $this;}
 
 
-    
+    public function getAllSubject()
+    {
+        $this->table = "materia";
+        $this->columns =[
+            'id as Materia_id',
+            'nombre as Materia'
+        ];
+        
+        $this->set_distinct(true); // Establecer DISTINCT correctamente
+        $this->set_order_by('nombre ASC');
+
+        return $this->query();
+    }
+
 
     public function all(){
         $this->table = "materia";

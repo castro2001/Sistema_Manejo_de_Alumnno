@@ -142,7 +142,7 @@ $(document).ready(function () {
     <div class="col-md-4">
         <div class="mb-3">
             <label for="total" class="form-label">Total</label>
-            <input type="text" class="form-control" id="total" name="total" placeholder="10.00" maxlength=6>
+            <input type="text" class="form-control" id="total" name="total" value="0.00" maxlength=6>
             <div id="errorTotal" class="error-message"></div>
             <button onclick='actualizarTotal()' class='btn btn-secondary mt-2' type='button' >Calcular EL Total</button>
         </div>
@@ -227,7 +227,7 @@ $(document).ready(function () {
    <div class="col-md-4">
        <div class="mb-3">
            <label for="total" class="form-label">Total</label>
-           <input type="text" class="form-control" id="total" name="total" placeholder="10.00" maxlength=6>
+           <input type="text" class="form-control" id="total" name="total"  value="0.00" maxlength=6>
            <div id="errorTotal" class="error-message"></div>
            <button onclick='actualizarTotal()' class='btn btn-secondary mt-2' type='button' >Calcular EL Total</button>
        </div>
@@ -362,7 +362,6 @@ $(document).ready(function () {
         success: function(response) {
             // Lógica de éxito (mostrar mensaje, recargar datos, etc.)
           const responseJson = JSON.parse(response);
-            console.log(responseJson); // O manejar con alertas o recargas de tabla
           // Configura un intervalo de tiempo para recargar los datos automáticamente
           alerta.html(`
             <div class="alert ${responseJson.alert} alert-dismissible fade show" role="alert">
@@ -370,11 +369,15 @@ $(document).ready(function () {
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
           `);
-          $('#reusableModal').modal('hide');
-        //   setInterval(function () {
-        //    // Llama a la función de recarga cada 10 segundos (puedes ajustar este valor)
-        //    location.reload()
-        // }, 100);
+          // Detectar el cierre del modal
+$('#modal_reutilizable_pagos').on('hidden.bs.modal', function () {
+    // 
+    setTimeout(function(){
+      location.reload(); // Recargar la página
+    },1000)
+  });
+       
+        
         
         },
         error: function(xhr, status, error) {
@@ -441,7 +444,6 @@ function obtenerPagoPorId(id) {
 
 function selectionDinamic (id_Alumno,Alumno,Metodo_Pago) {
     
-    console.log(id_Alumno);
     
     $.ajax({
         method: 'POST',
@@ -450,7 +452,6 @@ function selectionDinamic (id_Alumno,Alumno,Metodo_Pago) {
             const responseJson = JSON.parse(response); // Convertir la respuesta a JSON
             const alumnoSelect = $('#select_Alumno');
             const metodoSelect = $('#select_pago');
-        console.log(responseJson);
         
             alumnoSelect.empty();
         
