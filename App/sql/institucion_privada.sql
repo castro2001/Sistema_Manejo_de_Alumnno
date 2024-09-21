@@ -4,7 +4,6 @@ CREATE DATABASE u531517694_controlescolar;
 USE u531517694_controlescolar;
 
 -- TABLA BBDD
-
 CREATE TABLE `usuario`(
     id INT AUTO_INCREMENT NOT NULL,
     usuario VARCHAR(100) NOT NULL,
@@ -69,13 +68,13 @@ CREATE TABLE `pagos` (
     PRIMARY KEY(id),
     FOREIGN KEY (id_alumno) REFERENCES alumno(id)
 );
-SELECT * FROM usuario
+
 
 -- DATOS POR DEFECTOS
 
 
 -- Insertar datos en la tabla `tutor`
-INSERT INTO usuario(usuario,password,rol) VALUES('Administrador','Admin4578','Administrador')
+INSERT INTO usuario(usuario,password,rol) VALUES('Administrador','Admin4578','Administrador');
 
 INSERT INTO tutor (nombre, n_celular, ocupacion) VALUES 
 ('Carlos Pérez', '0987654321', 'Ingeniero'),
@@ -112,13 +111,11 @@ VALUES
 -- Insertar datos en la tabla `alumno_materia`
 
 
--- Consultaass
-SELECT * FROM usuario
+
 
 
 -- Acctualizar incremmenntte aa 1 solo debe poner la tabla correspondiente
 ALTER TABLE materia AUTO_INCREMENT =1;
-
 
 
     
