@@ -69,11 +69,11 @@ CREATE TABLE `pagos` (
     PRIMARY KEY(id),
     FOREIGN KEY (id_alumno) REFERENCES alumno(id)
 );
-SELECT * FROM usuario
+SELECT * FROM usuario;
 
 -- DATOS POR DEFECTOS
 
-
+DELETE FROM pagos;
 -- Insertar datos en la tabla `tutor`
 INSERT INTO usuario(usuario,password,rol) VALUES('Administrador','Admin4578','Administrador')
 
@@ -117,7 +117,7 @@ SELECT * FROM usuario
 
 
 -- Acctualizar incremmenntte aa 1 solo debe poner la tabla correspondiente
-ALTER TABLE materia AUTO_INCREMENT =1;
+ALTER TABLE pagos AUTO_INCREMENT =1;
 
 
 

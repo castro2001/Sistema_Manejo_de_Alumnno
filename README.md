@@ -32,3 +32,19 @@ el login esta realizado como un logeo sencillo sin roles.
 el usuario ingresa el login se deshabilita puede andar a todas la rutas disponible.
 
 Cualquier consulta me escribe por whatsapp
+
+public function getUrl(){
+        // Definir las vistas permitidas solo para usuarios autenticados
+        $this->listWhite = array(
+            "Administrador",'Alumno','Horario','Pagos','Tutor','Materia','AgregarAlumno','Login'
+        );
+
+        if(!isset($_GET['views'])){
+            $controller = new LoginController();
+            call_user_func(array($controller, 'view_login'));
+        }else{
+            
+            var_dump($_GET);
+        }
+
+        

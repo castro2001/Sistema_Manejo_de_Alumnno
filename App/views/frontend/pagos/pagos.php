@@ -32,8 +32,7 @@
     </table>
     </div>
   
-<!-- data-bs-target="#modal_reutilizable_pagos" id="createButtonPago" -->
-  </section>
+
 
 
 <!-- Modal -->
