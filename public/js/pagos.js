@@ -21,7 +21,8 @@ $(document).ready(function () {
         {data:'Total'},
         {data:'status'},
         {data:'editar'},
-        {data:'eliminar'}
+        {data:'eliminar'},
+        {data:'pdf'},
       ],
       
       columnDefs: [

@@ -25,6 +25,7 @@
                 <th scope="col">Estado</th> 
                 <th scope="col">Editar</th> 
                 <th scope="col">Eliminar</th> 
+                <th scope="col">Reporte</th> 
             </tr>
         </thead>
         <tbody>

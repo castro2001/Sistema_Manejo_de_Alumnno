@@ -22,6 +22,18 @@ class PagosController extends Controller{
         $this->render("pagos.pagos",$information);
     }
 
+    public function reportes(){
+        
+    }
+
+    public function pdfPagos(){
+   
+    
+        $this->paymentRepository->pdfGeneratePaymentById($_GET['id']);
+   
+   
+    }
+
     public function getDataPagos() {
         $this->checkRequest();
         $dataArray = array();
@@ -42,11 +54,15 @@ class PagosController extends Controller{
                             <button class='btn btn-success ' type='button' data-bs-toggle='modal' id='editarButtonPago' data-bs-target='#modal_reutilizable_pagos'
                          data-id=$data->id ><span class='material-icons'>edit</span> </button>                ",
                 "eliminar"=>"<button class='btn btn-danger ' type='button' data-bs-toggle='modal' id='borrarButtonPago' data-bs-target='#modal_reutilizable_pagos'
-                             data-id=$data->id    ><span class='material-icons'>delete</span> </button>"
+                             data-id=$data->id><span class='material-icons'>delete</span> </button>",
+              "pdf"=>"<a class='btn btn-warning'  href='Pagos/pdfPagos/$data->id'>
+                <span class='material-icons'>print</span> </a>",
             );
         }
         echo json_encode(array("data" => $dataArray));
     }
+
+
 
     public function getByPagos(){
         $this->checkRequest();
